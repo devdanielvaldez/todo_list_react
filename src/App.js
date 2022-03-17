@@ -11,7 +11,6 @@ import { Button, TextField } from '@material-ui/core';
 import { db } from './config/firebase_config';
 import TodoListItem from './components/todoList/TodoList';
 import { ClipLoader, ClimbingBoxLoader } from 'react-spinners';
-import { DeveloperBoard } from '@mui/icons-material'
 
 /**
  * Main function
