@@ -11,12 +11,18 @@ import { db } from "../../config/firebase_config";
 import "./TodoList.scss"
 
 export default function TodoListItem({ todo, state, id }) {
+  /**
+   * this function performs an update to the "state" property on a specific record within the "all" collection
+   */
   function toggleInProgress() {
     db.collection("todos").doc(id).update({
       state: !state,
     });
   }
 
+  /**
+   * this function performs a delete to the property on a specific record within the "all" collection
+   */
   function deleteTodo() {
     db.collection("todos").doc(id).delete();
   }
