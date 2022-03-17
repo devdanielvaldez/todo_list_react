@@ -1,10 +1,22 @@
+/*
+Daniel A. Valdez Guzman
+FullStack Developer
+hello@daniel-valdez.com
+https://daniel-valdez.com
++1 (829) 696 - 7695 **/
+
 import { useEffect, useState } from 'react';
 import './App.scss';
 import { Button, TextField } from '@material-ui/core';
 import { db } from './config/firebase_config';
 import TodoListItem from './components/todoList/TodoList';
 import { ClipLoader, ClimbingBoxLoader } from 'react-spinners';
+import { DeveloperBoard } from '@mui/icons-material'
 
+/**
+ * Main function
+ * @returns 
+ */
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoInput, setTodoInput] = useState("");
@@ -18,6 +30,13 @@ function App() {
     }, 8000);
   }, []);
 
+  /**
+   * this function captures the data returned from the "todos" collection in firestore and is loaded into setTodos
+   * properties:
+   *  - id: string
+   *  - todo: string
+   *  - state: boolean
+   */
   function getTodos() {
     db.collection("todos").onSnapshot(function (querySnapshot) {
       setTodos(
@@ -30,6 +49,14 @@ function App() {
     });
   }
 
+  /**
+   * this function captures the entered task and sends it to firestore
+   * properties:
+   *  - state: boolean
+   *  - timestamp: date
+   *  - todo: string
+   * @param {*} e 
+   */
   function addTodo(e) {
     e.preventDefault();
 
@@ -46,50 +73,50 @@ function App() {
     <div className="App">
       {
         loading ?
-        <ClimbingBoxLoader 
-        size={10}
-        color={"#282c34"}
-        loading={loading}
-        />
-        :
-        <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        <h1 className="title">TODO LIST</h1>
-        <p className="subTitle">Escriba su tarea y presione enter para guardar</p>
-        <form>
-          <TextField
-            id="standard-basic"
-            label="Escriba su tarea aquí"
-            value={todoInput}
-            style={{ width: "90vw", maxWidth: "500px" }}
-            onChange={(e) => setTodoInput(e.target.value)}
+          <ClimbingBoxLoader
+            size={10}
+            color={"#282c34"}
+            loading={loading}
           />
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={addTodo}
-            style={{ display: "none" }}
+          :
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-          </Button>
-        </form>
+            <h1 className="title">TODO LIST</h1>
+            <p className="subTitle">Escriba su tarea y presione enter para guardar</p>
+            <form>
+              <TextField
+                id="standard-basic"
+                label="Escriba su tarea aquí"
+                value={todoInput}
+                style={{ width: "90vw", maxWidth: "500px" }}
+                onChange={(e) => setTodoInput(e.target.value)}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={addTodo}
+                style={{ display: "none" }}
+              >
+              </Button>
+            </form>
 
-        <div style={{ width: "90vw", maxWidth: "500px", marginTop: "24px" }}>
-          {todos.map((todo) => (
-            <TodoListItem
-              todo={todo.todo}
-              state={todo.state}
-              id={todo.id}
-            />
-          ))}
-        </div>
-      </div>
+            <div style={{ width: "90vw", maxWidth: "500px", marginTop: "24px" }}>
+              {todos.map((todo) => (
+                <TodoListItem
+                  todo={todo.todo}
+                  state={todo.state}
+                  id={todo.id}
+                />
+              ))}
+            </div>
+          </div>
       }
 
     </div>

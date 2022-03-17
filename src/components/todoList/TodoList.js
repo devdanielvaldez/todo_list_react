@@ -1,3 +1,10 @@
+/*
+Daniel A. Valdez Guzman
+FullStack Developer
+hello@daniel-valdez.com
+https://daniel-valdez.com
++1 (829) 696 - 7695 **/
+
 import React from "react";
 import { ListItem, ListItemText, Button } from "@material-ui/core";
 import { db } from "../../config/firebase_config";
