@@ -1,6 +1,15 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# TODO List App
+
+## Requirements
+
+### English
+
+This is a project focused on creating a TODO List using firebase services, React as front-end framework and GitHub as version controller.
+
+### Spanish
+
+Este es un proyecto enfocado en crear un TODO List utilizando los servicios de firebase, React como framework front-end y GitHub como controlador de versiones
 
 ## Available Scripts
 
