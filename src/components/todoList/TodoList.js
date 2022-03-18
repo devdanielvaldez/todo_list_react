@@ -54,6 +54,9 @@ export default function TodoListItem({ todo, state, id, des, date }) {
     db.collection("todos").doc(id).delete();
   }
 
+  /**
+   * this function fires the modal and sets the information in the corresponding fields
+   */
   function openModal() {
     handleOpen();
     setSelectDate(date);
@@ -62,10 +65,17 @@ export default function TodoListItem({ todo, state, id, des, date }) {
     setTodoId(id);
   }
 
+  /**
+   * this function sets the date selected by the user
+   * @param {*} date 
+   */
   function handleDataChange(date) {
     setSelectDate(date);
   }
 
+  /**
+   * this function sends the updated data of a record to the collection in firestore and then closes the modal
+   */
   function updateTodo() {
     db.collection("todos").doc(todoId).update({
       todo: todoInput,
@@ -74,8 +84,6 @@ export default function TodoListItem({ todo, state, id, des, date }) {
     });
     handleClose();
   }
-
-
 
   return (
     <div style={{ display: "flex" }}>
