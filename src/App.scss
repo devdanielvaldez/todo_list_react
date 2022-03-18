@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #FFF;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,10 +9,10 @@
   div {
     .title {
       font-weight: 400;
-  }
-  .subTitle {
-    font-weight: 300;
-    margin-top: -20px;
-  }
+    }
+    .subTitle {
+      font-weight: 300;
+      margin-top: -20px;
+    }
   }
 }
