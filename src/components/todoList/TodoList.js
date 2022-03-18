@@ -9,8 +9,9 @@ import React from "react";
 import { ListItem, ListItemText, Button } from "@material-ui/core";
 import { db } from "../../config/firebase_config";
 import "./TodoList.scss"
+import moment from "moment";
 
-export default function TodoListItem({ todo, state, id }) {
+export default function TodoListItem({ todo, state, id, des, date }) {
   /**
    * this function performs an update to the "state" property on a specific record within the "all" collection
    */
@@ -33,15 +34,22 @@ export default function TodoListItem({ todo, state, id }) {
       <ListItem>
         <ListItemText
           primary={todo}
-          secondary={state ? "En Desarrollo 🚧" : "Completa ✅"}
+          secondary={state ? "Developing 🚧" : "Done ✅"}
+        />
+        <ListItemText
+          primary={des}
+          secondary={moment(date).format('LL')}
         />
       </ListItem>
 
       <Button onClick={toggleInProgress}>
-        {state ? "Lista" : "No Completada"}
+        {state ? "Done" : "Not Completed"}
       </Button>
       <Button onClick={deleteTodo}>
-      <i class="bi bi-trash"></i>
+        <i className="bi bi-trash"></i>
+      </Button>
+      <Button onClick={deleteTodo}>
+        EDIT
       </Button>
     </div>
   );

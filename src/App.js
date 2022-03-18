@@ -7,10 +7,16 @@ https://daniel-valdez.com
 
 import { useEffect, useState } from 'react';
 import './App.scss';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Grid } from '@material-ui/core';
 import { db } from './config/firebase_config';
 import TodoListItem from './components/todoList/TodoList';
-import { ClipLoader, ClimbingBoxLoader } from 'react-spinners';
+import { ClimbingBoxLoader } from 'react-spinners';
+import DateMomentUtils from '@date-io/moment';
+import {
+  DatePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import moment from 'moment';
 
 /**
  * Main function
@@ -19,14 +25,16 @@ import { ClipLoader, ClimbingBoxLoader } from 'react-spinners';
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoInput, setTodoInput] = useState("");
+  const [todoDesInput, setTodoDesInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [selectDate, setSelectDate] = useState(new Date);
 
   useEffect(() => {
     getTodos();
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 8000);
+    }, 1000);
   }, []);
 
   /**
@@ -38,14 +46,23 @@ function App() {
    */
   function getTodos() {
     db.collection("todos").onSnapshot(function (querySnapshot) {
+      querySnapshot.docs.map((doc) => {
+        console.log(doc.data())
+      })
       setTodos(
         querySnapshot.docs.map((doc) => ({
           id: doc.id,
           todo: doc.data().todo,
           state: doc.data().state,
+          description: doc.data().description,
+          date: doc.data().date
         }))
       );
     });
+  }
+
+  function handleDataChange(date) {
+    setSelectDate(date);
   }
 
   /**
@@ -63,9 +80,12 @@ function App() {
       state: true,
       timestamp: Date.now(),
       todo: todoInput,
+      description: todoDesInput,
+      date: moment(selectDate).format()
     })
 
     setTodoInput("");
+    setTodoDesInput("");
   }
 
   return (
@@ -88,15 +108,27 @@ function App() {
             }}
           >
             <h1 className="title">TODO LIST</h1>
-            <p className="subTitle">Escriba su tarea y presione enter para guardar</p>
+            <p className="subTitle">Type your task and press enter to save</p>
             <form>
               <TextField
                 id="standard-basic"
-                label="Escriba su tarea aquí"
+                label="Title"
                 value={todoInput}
-                style={{ width: "90vw", maxWidth: "500px" }}
+                style={{ width: "90vw", maxWidth: "200px" }}
                 onChange={(e) => setTodoInput(e.target.value)}
               />
+              <TextField
+                id="standard-basic"
+                label="Description"
+                value={todoDesInput}
+                style={{ width: "90vw", maxWidth: "500px", marginLeft: "10px" }}
+                onChange={(e) => setTodoDesInput(e.target.value)}
+              />
+
+              <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                <DatePicker value={selectDate} onChange={handleDataChange} label="Date" format='DD/MM/yyy' style={{ width: "90vw", maxWidth: "200px", marginLeft: "10px" }} />
+              </MuiPickersUtilsProvider>
+
               <Button
                 type="submit"
                 variant="contained"
@@ -112,6 +144,8 @@ function App() {
                   todo={todo.todo}
                   state={todo.state}
                   id={todo.id}
+                  des={todo.description}
+                  date={todo.date}
                 />
               ))}
             </div>
