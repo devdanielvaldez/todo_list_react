@@ -126,6 +126,7 @@ export default function TodoListItem({ todo, state, id, des, date }) {
                 value={todoInput}
                 style={{ width: "90vw", maxWidth: "400px" }}
                 onChange={(e) => setTodoInput(e.target.value)}
+                inputProps={{ maxLength: 15 }}
               />
               <TextField
                 id="standard-basic"
@@ -133,6 +134,7 @@ export default function TodoListItem({ todo, state, id, des, date }) {
                 value={todoDesInput}
                 style={{ width: "90vw", maxWidth: "400px" }}
                 onChange={(e) => setTodoDesInput(e.target.value)}
+                inputProps={{ maxLength: 50 }}
               />
 
               <MuiPickersUtilsProvider utils={DateMomentUtils}>

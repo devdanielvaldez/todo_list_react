@@ -116,6 +116,7 @@ function App() {
                 value={todoInput}
                 style={{ width: "90vw", maxWidth: "200px" }}
                 onChange={(e) => setTodoInput(e.target.value)}
+                inputProps={{ maxLength: 15 }}
               />
               <TextField
                 id="standard-basic"
@@ -123,6 +124,7 @@ function App() {
                 value={todoDesInput}
                 style={{ width: "90vw", maxWidth: "500px", marginLeft: "10px" }}
                 onChange={(e) => setTodoDesInput(e.target.value)}
+                inputProps={{ maxLength: 50 }}
               />
 
               <MuiPickersUtilsProvider utils={DateMomentUtils}>
