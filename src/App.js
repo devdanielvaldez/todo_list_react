@@ -60,7 +60,10 @@ function App() {
       );
     });
   }
-
+  /**
+   * this function sets the date selected by the user
+   * @param {*} date 
+   */
   function handleDataChange(date) {
     setSelectDate(date);
   }
